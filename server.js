@@ -25,7 +25,7 @@ app.get("/api", (req, res) => {
         .find()
         .toArray()
         .then((docs) => res.send(docs))
-        .catch((err) => errorCatcher(err));
+      
     });
   } catch (err) {
     console.log(err);
