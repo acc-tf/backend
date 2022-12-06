@@ -5,7 +5,7 @@ const app = express();
 const bodyParser = require("body-parser");
 app.use(cors());
 app.use(bodyParser.json());
-const ObjectID = require('mongodb').ObjectID;
+const ObjectId = require('mongodb').ObjectId;
 
 app.use(function (req, res, next) {
   res.header("Access-Control-Allow-Origin", "*");
@@ -53,7 +53,7 @@ app.put("/:id", (req, res, next) => {
     if (err) throw err;
     const db = conn.db("demotf");
     const coll = db.collection("Student");
-    coll.findOneAndUpdate({_id: ObjectID(req.params.id)}, {$set: req.body}, (error, data) => {
+    coll.findOneAndUpdate({_id: ObjectId(req.params.id)}, {$set: req.body}, (error, data) => {
       if (error) {
         console.log(error)
       }
@@ -71,7 +71,7 @@ app.delete("/:id", (req, res, next) => {
     if (err) throw err;
     const db = conn.db("demotf");
     const coll = db.collection("Student");
-    coll.deleteOne({_id: ObjectID(req.params.id)})
+    coll.deleteOne({_id: ObjectId(req.params.id)})
     .then(() => coll.find().toArray())
     .then((docs) => res.json(docs))
     .catch((err) => errorCatcher(err));
