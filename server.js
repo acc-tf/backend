@@ -65,4 +65,19 @@ app.put("/:id", (req, res, next) => {
   })
 })
 
+
+app.delete("/:id", (req, res, next) => {
+  mongodb.connect("mongodb://127.0.0.1:27017", (err, conn) => {
+    if (err) throw err;
+    const db = conn.db("demotf");
+    const coll = db.collection("Student");
+    coll.deleteOne({_id: ObjectID(req.params.id)})
+    .then(() => coll.find().toArray())
+    .then((docs) => res.json(docs))
+    .catch((err) => errorCatcher(err));
+      
+    })
+  })
+
+
   app.listen(4000, () => console.log("Server listening"));
